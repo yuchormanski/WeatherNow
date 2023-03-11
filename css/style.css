@@ -1,0 +1,92 @@
+body {
+    margin: 0;
+
+}
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+#main{
+    max-width: 400px;
+    display: block;
+    margin: 0 auto;
+}
+.city-name {
+    display: block;
+    width: 100px;
+    height: 30px;
+    margin: 10px auto;
+}
+.city-name-low{
+    display: block;
+    width: 70%;
+    margin: 5px auto;
+}
+
+.lastInfo {
+    width: 90%;
+    display: block;
+    margin: 0px auto 0;
+    /* border: 1px solid red; */
+}
+
+
+.basic,
+.basic-head {
+    display: inline-block;
+    border-bottom: 1px dotted rgba(63, 61, 61, 0.354);
+    text-align: center;
+}
+
+.basic {
+    margin: 30px 30px;
+    width: 100px;
+    vertical-align: auto;
+}
+
+.basic-head {
+    width: 195px;
+
+}
+
+.main-info {
+    font-size: 22px;
+    color: rgb(125, 0, 0);
+    font-weight: bold;
+}
+
+.additional-info {
+
+    color: rgb(125, 0, 0);
+    font-weight: ;
+}
+.condition-img{
+    width: 150px;
+    height: 100px;
+    display: block;
+    margin: 80px auto;
+    box-shadow:  0 3px 15px rgba(158, 158, 158, 0.5);
+}
+.condition-img img{
+    width: 100px;
+    display: block;
+    margin: 20px auto;
+}
+.city-condition{
+    display: block;
+    text-align: center;
+    width: 200px;
+    margin: 10px auto;
+}
+.em-class{
+    font-size: 12px;
+}
+.p-status{
+    font-size: 20px;
+    color: rgb(125, 0, 0);
+    font-weight: bold;
+
+
+}
