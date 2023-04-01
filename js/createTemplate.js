@@ -1,4 +1,7 @@
 import { html, render } from '../node_modules/lit-html/lit-html.js';
+import { getForecast } from './forecast.js';
+import { getAstroForecast } from './astro.js';
+import { getTimeZone } from './timeZone.js';
 
 
 export function elements(data) {
@@ -7,7 +10,9 @@ export function elements(data) {
     const weatherInfo = Object.values(data)[1];
     // console.log(data);
 
-    const weather = () => html`
+    const weather = (forecast) => html`
+
+
     <div class="city-name">
         <h1>${basicInfo.name}</h1>
     </div>
@@ -74,7 +79,12 @@ export function elements(data) {
 
 
 `
-    render(weather(), main)
+const forecast = getForecast();
+const astro = getAstroForecast();
+const timeZone = getTimeZone();
+
+
+    render(weather(forecast, astro), main)
 }
 
 // {

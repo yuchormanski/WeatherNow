@@ -2,10 +2,12 @@
 
 import { elements } from "./createTemplate.js";
 
-const baseURL = 'https://weatherapi-com.p.rapidapi.com/current.json?q=Sofia%20Bulgaria';
+const city = 'Teteven';
+// const baseURL = 'https://weatherapi-com.p.rapidapi.com/current.json?q=Sofia%20Bulgaria';
+const baseURL = `https://weatherapi-com.p.rapidapi.com/current.json?q=${city}%20Bulgaria`;
 
 
-export async function getWeather() {
+// async function getWeather() {
 
     const response = await fetch(baseURL, {
         method: 'GET',
@@ -15,5 +17,7 @@ export async function getWeather() {
         }
     })
     const data = await response.json();
-    elements(data)
-}
+    // elements(data)
+// }
+
+
