@@ -5,10 +5,9 @@ import { homePage } from './views/home.js';
 
 const body = document.getElementById('body');
 
-
 page(middleware)
-page('index.html', '/'); // system tool
-page('/', homePage);
+// page('index.html', '/'); // system tool
+page('/index.html', homePage);
 
 page.start();
 
@@ -18,6 +17,5 @@ function middleware(ctx, next) {
 }
 
 function renderView(content) {
-    
     render(headerTemplate(content), body);
 }

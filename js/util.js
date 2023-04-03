@@ -20,5 +20,6 @@ export function createSubmitHandler(callback){
         const data = Object.fromEntries(formData.entries());
 
         callback(data, form);
+        console.log(data);
     }
 }
