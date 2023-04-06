@@ -15,9 +15,10 @@ body {
 
 .searchField {
     padding: 25px 0;
-    margin: 0 0 0 170px;
+    margin: 0 0 0 70px;
 }
-.searchField button{
+.searchField button,
+div.toSofia button {
     background-color: rgb(48, 162, 48);
     color: #ccc;
     font-weight: bold;
@@ -27,11 +28,18 @@ body {
     margin: 0 0 0 -3px;
 }
 
+div.toSofia button {
+    display: block;
+    padding: 2px 30px;
+    margin: 20px auto;
+}
+
 .headerDiv,
 footer {
     background-color: #22272e;
     width: 100%;
-    height: 50px;
+    /* height: 50px; */
+    padding: 20px 0;
 }
 
 footer {
@@ -46,7 +54,7 @@ footer {
 }
 
 .main-section {
-    width: 602px;
+    width: 400px;
     margin: 30px auto 0;
     /* border: 1px solid #444c56; */
 
@@ -54,7 +62,7 @@ footer {
 
 .main-weather {
     background-color: #22272e;
-    width: 600px;
+    width: 400px;
     height: auto;
     border: 1px solid #444c56;
     border-radius: 10px;
@@ -69,7 +77,7 @@ footer {
 }
 
 .weatherBlock {
-    width: 598px;
+    width: 400px;
     height: 208px;
     display: flex;
     justify-content: space-evenly;
@@ -77,9 +85,9 @@ footer {
 }
 
 .infoBlock {
-    width: 200px;
-    height: 150px;
-    align-self: center;
+    width: 150px;
+    /* height: 150px; */
+    /* align-self: center; */
     /* border: 1px solid gray; */
 }
 
@@ -88,11 +96,14 @@ footer {
 }
 
 .infoText {
-    font-size: 22px;
+    font-size: 10px;
+}
+.conditionText {
+    font-size: 18px;
 }
 
 .location-info {
-    width: 598px;
+    width: 400px;
     text-align: center;
     font-size: 32px;
 }
@@ -104,14 +115,14 @@ footer {
 
 .detailsBlock {
     margin: 20px 0 0;
-    width: 600px;
+    width: 400px;
     border: 1px solid #444c56;
     border-radius: 10px;
-    font-size: 70%;
+    font-size: 45%;
 }
 
 .table {
-    width: 598px;
+    width: 400px;
 border-spacing: 10px;
 }
 .table td{
@@ -136,9 +147,9 @@ border-spacing: 10px;
     border: 1px solid #444c56;
 }
 
-.temp {
+/* .temp {
     margin: 50px 0 0 0px;
-}
+} */
 
 .image-detail {
     margin: 0 0px 0 0;

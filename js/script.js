@@ -1,16 +1,10 @@
 import { html, render } from '../node_modules/lit-html/lit-html.js'
 import { createSubmitHandler } from '../js/util.js';
-// const baseURL = 'https://weatherapi-com.p.rapidapi.com/current.json?q=Sofia%20Bulgaria';
-window.onload = homePage()
-
+const city = 'Sofia'
 
 export const body = document.getElementById('body');
 
-
-
-async function homePage() {
-
-    const homeTemplate = (data) => html`
+const homeTemplate = (data, onSearch) => html`
 
         <header>
             <div class="headerDiv">
@@ -21,7 +15,7 @@ async function homePage() {
             <section class="main-section">
 
                 <div class="searchField">
-                    <form id="searchForm" @submit=${onSearch}>
+                    <form name="searchForm" id="searchForm" @submit=${onSearch}>
                         <input id="searchInput" class="search-input" type="search" name="search" placeholder="Search for city"/>
                         <button>Search</button>
                     </form>
@@ -34,9 +28,9 @@ async function homePage() {
                             <span class="current-temp">${data.current.temp_c}</span><span class="temp-sign">&deg;C</span>
                         </div>
                         <div class="infoBlock image-detail">
-                            <!-- <img src=${data.current.condition.icon}/> -->
-                            <img src=${data.icon}/>
-                            <p class="condition infoText">${data.current.condition.text}</p>  
+                            <img src=${data.current.condition.icon} class="order"/>
+                            <!-- <img src=${data.icon}/> -->
+                            <p class="condition conditionText order">${data.current.condition.text}</p>  
                         </div>
                     </div>
                     <div class="location-info">
@@ -82,50 +76,52 @@ async function homePage() {
                     <div class="forecast"></div>
 
                 </div>
-        </section>
+
+            </section>
+            <div id="toSofia" class="toSofia">
+                <button @click=${() => homePage('Sofia')}>Return to Sofia</button>
+            </div>
         </main>
 
         <footer>
             <p>footer</p>
         </footer>
 `;
-    onLoading()
-    async function onLoading() {
-        let city = 'Sofia'
-        const baseURL = `https://weatherapi-com.p.rapidapi.com/current.json?q=${city}%20Bulgaria`;
 
-        const response = await fetch(baseURL, {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': '5d5f7a03a5msh54b752933b8e6d0p1f90cbjsn9618af378be3',
-                'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
-            }
-        })
-        const data = await response.json();
-        const icon = data.current.condition.icon;
-        if (icon.includes('64x64')) {
-            let newIcon = icon.replace('64x64', '128x128');
-            data.icon = newIcon;
+homePage(city)
+async function homePage(city) {
+    const baseURL = `https://weatherapi-com.p.rapidapi.com/current.json?q=${city}%20Bulgaria`;
+
+    const response = await fetch(baseURL, {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '5d5f7a03a5msh54b752933b8e6d0p1f90cbjsn9618af378be3',
+            'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
         }
-        render(homeTemplate(data, createSubmitHandler(onSearch)), body);
+    })
+    const data = await response.json();
+    const icon = data.current.condition.icon;
+    // if (icon.includes('64x64')) {
+    //     let newIcon = icon.replace('64x64', '128x128');
+    //     data.icon = newIcon;
+    // }
+
+    
+    render(homeTemplate(data, createSubmitHandler(onSearch)), body);
+
+    const btnSofia = document.getElementById('toSofia');
+
+
+    if(city === 'Sofia'){
+        btnSofia.style.display = 'none';
+    } else {
+        btnSofia.style.display = '';
+
     }
-
-    async function onSearch(result) {
-
-        const response = await fetch(`https://weatherapi-com.p.rapidapi.com/current.json?q=${result.search}%20Bulgaria`, {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': '5d5f7a03a5msh54b752933b8e6d0p1f90cbjsn9618af378be3',
-                'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
-            }
-        })
-        const data = await response.json();
-        console.log(data);
-        const icon = data.current.condition.icon;
-        if (icon.includes('64x64')) {
-            let newIcon = icon.replace('64x64', '128x128');
-            data.icon = newIcon;
-        }
-        render(homeTemplate(data, createSubmitHandler(onSearch)), body);
+    
+    async function onSearch(city,form) {
+        homePage(city)
+        form.reset();
     }
 }
+
