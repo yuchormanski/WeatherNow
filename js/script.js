@@ -4,7 +4,7 @@ const city = 'Sofia'
 
 export const body = document.getElementById('body');
 
-const homeTemplate = (data, onSearch) => html`
+const homeTemplate = (data, forecast, onSearch) => html`
 
         <header>
             <div class="headerDiv">
@@ -28,13 +28,13 @@ const homeTemplate = (data, onSearch) => html`
                             <span class="current-temp">${data.current.temp_c}</span><span class="temp-sign">&deg;C</span>
                         </div>
                         <div class="infoBlock image-detail">
-                            <img src=${data.current.condition.icon} class="order"/>
+                            <p class="imageP" ><img src=${data.current.condition.icon} class="order"/></p>
                             <!-- <img src=${data.icon}/> -->
                             <p class="condition conditionText order">${data.current.condition.text}</p>  
                         </div>
                     </div>
                     <div class="location-info">
-                        <span><em class="small-text">Location: </em>${data.location.name}</span>
+                        <span class="location-name"><em class="small-text">Location: </em>${data.location.name}</span>
                     <div>
                 <div>
 
@@ -70,10 +70,23 @@ const homeTemplate = (data, onSearch) => html`
                 </div>
 
 
+                <h6 class="forecastHeader">--  Next three days forecast  --</h6>
                 <div class="forecastBlock">
-                    <div class="forecast"></div>
-                    <div class="forecast"></div>
-                    <div class="forecast"></div>
+                    <div class="forecast">
+                        <a href="javascript:void(0)" @click=${() => alert('Will be done in next app versions!')}>
+                            <img src=${forecast.forecast.forecastday[0].day.condition.icon} alt="condition image"/>
+                        </a>
+                    </div>
+                    <div class="forecast">
+                        <a href="javascript:void(0)" @click=${() => alert('Will be done in next app versions!')}>
+                            <img src=${forecast.forecast.forecastday[1].day.condition.icon} alt="condition image"/>
+                        </a>
+                    </div>
+                    <div class="forecast">
+                        <a href="javascript:void(0)" @click=${() => alert('Will be done in next app versions!')}>
+                            <img src=${forecast.forecast.forecastday[2].day.condition.icon} alt="condition image"/>
+                        </a>
+                    </div>
 
                 </div>
 
@@ -83,9 +96,9 @@ const homeTemplate = (data, onSearch) => html`
             </div>
         </main>
 
-        <footer>
+        <!-- <footer>
             <p>footer</p>
-        </footer>
+        </footer> -->
 `;
 
 homePage(city)
@@ -100,28 +113,34 @@ async function homePage(city) {
         }
     })
     const data = await response.json();
-    const icon = data.current.condition.icon;
-    // if (icon.includes('64x64')) {
-    //     let newIcon = icon.replace('64x64', '128x128');
-    //     data.icon = newIcon;
-    // }
 
-    
-    render(homeTemplate(data, createSubmitHandler(onSearch)), body);
+    const forecastResponse = await fetch('https://weatherapi-com.p.rapidapi.com/forecast.json?q=Sofia&days=3', {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '0b1bd47e78msh9150619d0919e26p16e710jsn870f6abef60a',
+            'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
+        }
+    })
+
+    const forecast = await forecastResponse.json();
+    console.log(forecast);
+
+    render(homeTemplate(data, forecast, createSubmitHandler(onSearch)), body);
 
     const btnSofia = document.getElementById('toSofia');
 
 
-    if(city === 'Sofia'){
+    if (city === 'Sofia') {
         btnSofia.style.display = 'none';
     } else {
         btnSofia.style.display = '';
 
     }
-    
-    async function onSearch(city,form) {
+
+    async function onSearch(city, form) {
         homePage(city)
         form.reset();
     }
+
 }
 
