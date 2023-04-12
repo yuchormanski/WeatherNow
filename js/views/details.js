@@ -55,16 +55,18 @@ const detailTemplate = (data, location) => html`
                             <td><em class="small-text">Rain ? </em>${data.will_it_rain}<span class="infoText"></span></td>
                             <td><em class="small-text">Snow ? </em>${data.will_it_snow}<span class="infoText"></span></td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td><em class="small-text">Wind direction: </em>${data.wind_dir}</td>
                             <td><em class="small-text">Wind speed: </em>${data.wind_kph}<span class="infoText"> km/h</span></td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td><em class="small-text">Wind temp: </em>${data.windchill_c}<span class="infoText"></span></td>
                             <td><em class="small-text">Day/Night </em>${data.is_day === 0 ? html`Night` : html`Day`}<span class="infoText"></span></td>
                         </tr>
 
                     </table>
+                    <img src="../../../img/arrowSet/${data.wind_dir}.png" alt="" />
+                    <p>${data.wind_kph}<span class="infoText"> km/h</span></p>
                 </div>
                 </section>
             </main>

@@ -29,6 +29,7 @@ export const hourlyTemplate = (dayData, location, details) => html`
                         <div class="hours">
                             ${dayData.hour.map(x => html`
                             <div class="hour" @click=${() => details(x, location)}>
+                                <p class="">${x.temp_c} C</p>
                                 <img src="${x.condition.icon}" />
                                 <p class="condition">${x.condition.text}</p>
                                 <p class="time" >${x.time.split(' ')[1]}
@@ -74,5 +75,6 @@ export const hourlyTemplate = (dayData, location, details) => html`
 
 
 export async function hourlyForecast(dayData, location){
+    console.log(dayData);
     render(hourlyTemplate(dayData, location, details), body);
 }
