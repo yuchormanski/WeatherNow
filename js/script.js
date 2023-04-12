@@ -1,6 +1,9 @@
 import { html, render } from '../node_modules/lit-html/lit-html.js'
 import { createSubmitHandler } from '../js/util.js';
-import { hourlyTemplate } from './views/dailyForecast.js';
+import { hourlyForecast } from './views/dailyForecast.js';
+// import { hourlyTemplate } from './views/dailyForecast.js';
+// import { details } from './details.js';
+
 
 const city = 'Sofia'
 
@@ -151,10 +154,10 @@ export async function homePage(city) {
         form.reset();
     }
 
-    async function hourlyForecast(dayData, location){
-        console.log(dayData);
-        render(hourlyTemplate(dayData, location), body);
+    // async function hourlyForecast(dayData, location){
+    //     console.log(dayData);
+    //     render(hourlyTemplate(dayData, location, details), body);
 
-    }
+    // }
 }
 

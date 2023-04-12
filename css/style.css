@@ -12,6 +12,9 @@ body {
 .right {
     float: right;
 }
+.clearfix {
+    clear: both;
+}
 
 .searchField {
     display: flex;
@@ -56,7 +59,7 @@ footer {
 
 .main-section {
     width: 100%;
-    max-width: 370px;
+    max-width: 365px;
     margin: 0px auto 100px;
     padding: 0 2px;
 
@@ -65,7 +68,7 @@ footer {
 .main-weather {
     background-color: #22272e;
     width: 100%;
-    max-width: 370px;
+    max-width: 365px;
     height: auto;
     border: 1px solid #444c56;
     border-radius: 10px;
@@ -81,7 +84,7 @@ footer {
 
 .weatherBlock {
     width: 100%;
-    max-width: 370px;
+    max-width: 365px;
     height: 170px;
     display: flex;
     justify-content: space-evenly;
@@ -89,7 +92,7 @@ footer {
 }
 
 .infoBlock {
-    width: 100px;
+    /* width: 100px; */
     /* height: 150px; */
     /* align-self: center; */
     /* border: 1px solid gray; */
@@ -115,7 +118,7 @@ footer {
 
 .location-info {
     /* width: 100%; */
-    /* max-width: 370px; */
+    /* max-width: 365px; */
     text-align: center;
     font-size: 25px;
 }
@@ -127,7 +130,7 @@ footer {
 
 .detailsBlock {
     width: 100%;
-    max-width: 370px;
+    max-width: 365px;
     margin: 20px 0 0;
     border-top: 1px solid #444c56;
     border-bottom: 1px solid #444c56;
@@ -137,12 +140,13 @@ footer {
 
 .table {
     width: 100%;
-    max-width: 370px;
+    max-width: 365px;
     border-spacing: 10px;
 }
 
 .table td {
-    padding: 0 10px 0px;
+    width: 50%;
+    padding: 10px 0px 0px;
     border-bottom: 1px solid #73777b29;
 }
 
@@ -198,15 +202,22 @@ footer {
     margin: 10px 0;
 
 }
+
+.warning{
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+}
+
 .hours {
-    width: 370px;
+    width: 365px;
     display: inline-flex;
-    justify-content: space-evenly;
+    justify-content:flex-start;
     overflow-x: scroll;
     margin: 20px 0 10px 0;
 }
 .hour {
-    padding: 10px 20px;
+    padding: 10px 10px;
 }
 .hour .condition {
     margin: 10px 0;
