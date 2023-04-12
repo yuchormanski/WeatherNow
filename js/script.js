@@ -1,10 +1,12 @@
 import { html, render } from '../node_modules/lit-html/lit-html.js'
 import { createSubmitHandler } from '../js/util.js';
+import { hourlyTemplate } from './views/dailyForecast.js';
+
 const city = 'Sofia'
 
 export const body = document.getElementById('body');
 
-const homeTemplate = (data, forecast, onSearch) => html`
+const homeTemplate = (data, forecast, onSearch, formatter, hourlyForecast) => html`
 
         <header>
             <div class="headerDiv">
@@ -70,22 +72,28 @@ const homeTemplate = (data, forecast, onSearch) => html`
                 </div>
 
 
-                <h6 class="forecastHeader">--  Next three days forecast  --</h6>
+                <h6 class="forecastHeader">--  Hourly Forecast  --</h6>
                 <div class="forecastBlock">
                     <div class="forecast">
-                        <a href="javascript:void(0)" @click=${() => alert('Will be done in next app versions!')}>
+                        <!-- <a href="javascript:void(0)" @click=${() => alert('Will be done in next app versions!')}> -->
+                        <p class="forecast-label" @click=${() => hourlyForecast(forecast.forecast.forecastday[0], data.location.name)}>
                             <img src=${forecast.forecast.forecastday[0].day.condition.icon} alt="condition image"/>
-                        </a>
+                            <span class="forecast-date">Today</span class="forecast-label">
+                        </p>
                     </div>
                     <div class="forecast">
-                        <a href="javascript:void(0)" @click=${() => alert('Will be done in next app versions!')}>
+                        <!-- <a href="javascript:void(0)" @click=${() => alert('Will be done in next app versions!')}> -->
+                        <p class="forecast-label" @click=${() => hourlyForecast(forecast.forecast.forecastday[1], data.location.name)}>
                             <img src=${forecast.forecast.forecastday[1].day.condition.icon} alt="condition image"/>
-                        </a>
+                            <span class="forecast-date">${formatter(forecast.forecast.forecastday[1].date)}</span class="forecast-label">
+                        </p>
                     </div>
                     <div class="forecast">
-                        <a href="javascript:void(0)" @click=${() => alert('Will be done in next app versions!')}>
+                        <!-- <a href="javascript:void(0)" @click=${() => alert('Will be done in next app versions!')}> -->
+                        <p class="forecast-label" @click=${() => hourlyForecast(forecast.forecast.forecastday[2], data.location.name)}>
                             <img src=${forecast.forecast.forecastday[2].day.condition.icon} alt="condition image"/>
-                        </a>
+                            <span class="forecast-date">${formatter(forecast.forecast.forecastday[2].date)}</span class="forecast-label">
+                        </p>
                     </div>
 
                 </div>
@@ -95,14 +103,10 @@ const homeTemplate = (data, forecast, onSearch) => html`
                 <button @click=${() => homePage('Sofia')}>Return to Sofia</button>
             </div>
         </main>
-
-        <!-- <footer>
-            <p>footer</p>
-        </footer> -->
 `;
 
 homePage(city)
-async function homePage(city) {
+export async function homePage(city) {
     const baseURL = `https://weatherapi-com.p.rapidapi.com/current.json?q=${city}%20Bulgaria`;
 
     const response = await fetch(baseURL, {
@@ -123,9 +127,14 @@ async function homePage(city) {
     })
 
     const forecast = await forecastResponse.json();
-    console.log(forecast);
+    // console.log(forecast);
 
-    render(homeTemplate(data, forecast, createSubmitHandler(onSearch)), body);
+    render(homeTemplate(data, forecast, createSubmitHandler(onSearch), formatter, hourlyForecast), body);
+    
+    function formatter(date) {
+        const [year, month, day] = date.split('-');
+        return `${day}.${month}`;
+    }
 
     const btnSofia = document.getElementById('toSofia');
 
@@ -142,5 +151,10 @@ async function homePage(city) {
         form.reset();
     }
 
+    async function hourlyForecast(dayData, location){
+        console.log(dayData);
+        render(hourlyTemplate(dayData, location), body);
+
+    }
 }
 
