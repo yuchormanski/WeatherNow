@@ -65,7 +65,7 @@ const detailTemplate = (data, location) => html`
                         </tr>
 
                     </table>
-                    <img src="../../../img/arrowSet/${data.wind_dir}.png" alt="" />
+                    <img src="img/arrowSet/${data.wind_dir}.png" alt="" />
                     <p>${data.wind_kph}<span class="infoText"> km/h</span></p>
                 </div>
                 </section>
