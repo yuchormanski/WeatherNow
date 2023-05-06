@@ -5,6 +5,9 @@ import { hourlyForecast } from './views/dailyForecast.js';
 // import { details } from './details.js';
 
 
+
+
+
 const city = 'Sofia'
 
 export const body = document.getElementById('body');
@@ -103,14 +106,37 @@ const homeTemplate = (data, forecast, onSearch, formatter, hourlyForecast) => ht
 
             </section>
             <div id="toSofia" class="toSofia">
-                <button @click=${() => homePage('Sofia')}>Return to Sofia</button>
+                <!-- <button @click=${() => homePage('Sofia')}>Return to Sofia</button> -->
+               
+                    <button @click=${() => location.reload()}>Return to current location</button>
+              
             </div>
         </main>
 `;
 
-homePage(city)
-export async function homePage(city) {
-    const baseURL = `https://weatherapi-com.p.rapidapi.com/current.json?q=${city}%20Bulgaria`;
+const successCallback = (position) => {
+    const pos = `${position.coords.latitude},${position.coords.longitude}`
+    // console.log(pos);
+    homePage(pos)
+
+};
+
+const errorCallback = (error) => {
+    console.log(error);
+};
+navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+
+// homePage(city)
+
+
+export async function homePage(city, position) {
+
+    if (city === null) {
+        city = `${position.coords.latitude},${position.coords.longitude}`
+    }
+
+    // const baseURL = `https://weatherapi-com.p.rapidapi.com/current.json?q=${city}%20Bulgaria`;
+    const baseURL = `https://weatherapi-com.p.rapidapi.com/current.json?q=${city}`;
 
     const response = await fetch(baseURL, {
         method: 'GET',
@@ -130,10 +156,10 @@ export async function homePage(city) {
     })
 
     const forecast = await forecastResponse.json();
-    // console.log(forecast);
+
 
     render(homeTemplate(data, forecast, createSubmitHandler(onSearch), formatter, hourlyForecast), body);
-    
+
     function formatter(date) {
         const [year, month, day] = date.split('-');
         return `${day}.${month}`;

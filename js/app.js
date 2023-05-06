@@ -2,6 +2,7 @@
 import { render } from '../../node_modules/lit-html/lit-html.js';
 import { headerTemplate } from './views/header.js';
 import { homePage } from './views/home.js';
+import { loc } from './getLocation.js';
 
 const body = document.getElementById('body');
 
@@ -15,6 +16,8 @@ const body = document.getElementById('body');
 //     ctx.render = renderView;
 //     next();
 // }
+
+console.log('ok');
 
 function renderView(content) {
     render(headerTemplate(content), body);
