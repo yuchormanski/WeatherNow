@@ -8,7 +8,8 @@ import { hourlyForecast } from './views/dailyForecast.js';
 
 
 
-const city = 'Sofia'
+const city = 'Sofia';
+// const city = start();
 
 export const body = document.getElementById('body');
 
@@ -23,6 +24,11 @@ const homeTemplate = (data, forecast, onSearch, formatter, hourlyForecast) => ht
             <section class="main-section">
 
                 <div class="searchField">
+                    <div class="location-field" id="locationField">
+                        <button @click=${() => getLocation()}>Get Current Location</button>
+                    </div>
+                    <button id="showSearchForm" class="show-form">Search City</button>
+
                     <form name="searchForm" id="searchForm" @submit=${onSearch}>
                         <input id="searchInput" class="search-input" type="search" name="search" placeholder="Search for city"/>
                         <button>Search</button>
@@ -106,34 +112,33 @@ const homeTemplate = (data, forecast, onSearch, formatter, hourlyForecast) => ht
 
             </section>
             <div id="toSofia" class="toSofia">
-                <!-- <button @click=${() => homePage('Sofia')}>Return to Sofia</button> -->
-               
-                    <button @click=${() => location.reload()}>Return to current location</button>
-              
+                <button @click=${() => homePage('Sofia')}>Return to Sofia</button>
+                    <!-- <button @click=${() => location.reload()}>Return to current location</button> -->
             </div>
+
         </main>
 `;
+// start();
+function getLocation() {
 
-const successCallback = (position) => {
-    const pos = `${position.coords.latitude},${position.coords.longitude}`
-    // console.log(pos);
-    homePage(pos)
+    const successCallback = (position) => {
+        const pos = `${position.coords.latitude},${position.coords.longitude}`
+        console.log(pos);
+        homePage(pos)
 
-};
+    };
 
-const errorCallback = (error) => {
-    console.log(error);
-};
-navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    const errorCallback = (error) => {
+        console.log(error);
+    };
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+}
 
-// homePage(city)
+
+homePage(city)
 
 
-export async function homePage(city, position) {
-
-    if (city === null) {
-        city = `${position.coords.latitude},${position.coords.longitude}`
-    }
+export async function homePage(city) {
 
     // const baseURL = `https://weatherapi-com.p.rapidapi.com/current.json?q=${city}%20Bulgaria`;
     const baseURL = `https://weatherapi-com.p.rapidapi.com/current.json?q=${city}`;
@@ -166,14 +171,35 @@ export async function homePage(city, position) {
     }
 
     const btnSofia = document.getElementById('toSofia');
+    const searchForm = document.getElementById('searchForm');
+    const locationField = document.getElementById('locationField');
+    const showSearchFormBtn = document.getElementById('showSearchForm');
 
+    searchForm.style.display = 'none';
+    
+    showSearchFormBtn.addEventListener('click', () => {
+        if (searchForm.style.display === 'none') {
+            searchForm.style.display = 'block';
+            locationField.style.display = 'none';
+            showSearchFormBtn.textContent = ' < < < '
+        } else {
+            searchForm.style.display = 'none';
+            locationField.style.display = 'block';
+            showSearchFormBtn.textContent = 'Search City'
 
-    if (city === 'Sofia') {
+        }
+    })
+    
+
+    const currentCity = data.location.name;
+
+    if (currentCity === 'Sofia') {
         btnSofia.style.display = 'none';
     } else {
         btnSofia.style.display = '';
 
     }
+
 
     async function onSearch(city, form) {
         homePage(city)

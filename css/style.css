@@ -16,7 +16,8 @@ body {
     clear: both;
 }
 
-.searchField {
+.searchField,
+.location-btn {
     display: flex;
     justify-content: space-evenly;
     padding: 15px 0;
@@ -24,7 +25,8 @@ body {
 }
 
 .searchField button,
-div.toSofia button {
+div.toSofia button,
+.location-btn button {
     background-color: rgb(48, 162, 48);
     color: #ccc;
     font-weight: bold;
@@ -32,6 +34,17 @@ div.toSofia button {
     padding: 0px 20px;
     border-radius: 10px;
     margin: 0 0 0 -3px;
+}
+
+.location-btn {
+    padding: 15px 0 0 0;
+}
+.location-btn button {
+    width: 78%;
+}
+
+#searchForm {
+    /* position: absolute; */
 }
 
 div.toSofia button {
